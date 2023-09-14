@@ -8,12 +8,13 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] GameManager manager;
 
+    bool dz = false;
     bool dodge = false;
     float direction;
-    float uBound;
-    float lBound;
-    float xuBound;
-    float xlBound;
+    //float uBound;
+    //float lBound;
+    //float xuBound;
+    //float xlBound;
 
 
     // Start is called before the first frame update
@@ -30,12 +31,11 @@ public class Enemy : MonoBehaviour
         direction = Random.Range(0, 2);
 
         //determine the boundaries of a "dodge zone"
-        uBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.6f, 0)).y;
-        lBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.4f, 0)).y;
-        xuBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.85f, 0)).x;
-        xlBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.15f, 0)).x;
-        //15% from sides of screen makes it so the ship can never exit the screen,
-        //since the ships speed (12) divided by the lateral rate (2), will lead to a
+        //uBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.6f, 0)).y;
+        //lBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.4f, 0)).y;
+        //xuBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.85f, 0)).x;
+        //xlBound = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.15f, 0)).x;
+        //15% from sides of screen makes it so the ship can never exit the screen
         //1:6 ratio of side to down (15 degrees left). Across the gap that is 20%
         //of the screen, the most that the ship can move is to the border, not beyond it
     }
@@ -46,20 +46,21 @@ public class Enemy : MonoBehaviour
         if (dodge)
         {
             //Get x and y position of enemy ship
-            float xPos = transform.position.x;
-            float yPos = transform.position.y;
+            //float xPos = transform.position.x;
+            //float yPos = transform.position.y;
             //deide whether or not the ship is in the "dodge zone"
-            if ((uBound >= yPos && yPos >= lBound) && (xuBound >= xPos && xPos >= xlBound))
+            //if ((uBound >= yPos && yPos >= lBound) && (xuBound >= xPos && xPos >= xlBound))
+            if (dz)
             {
                 //Using the direction stat from earlier, decide whether the ship
                 //goes left or right
                 if (direction >= 1)
                 {
-                    transform.position -= new Vector3(-2, speed, 0) * Time.deltaTime;
+                    transform.position -= new Vector3(speed/3, speed, 0) * Time.deltaTime;
                 }
                 else
                 {
-                    transform.position -= new Vector3(2, speed, 0) * Time.deltaTime;
+                    transform.position -= new Vector3(speed/3, speed, 0) * Time.deltaTime;
                 }
             }
             else //when ship is not in the "dodge zone", go straight down
@@ -78,12 +79,28 @@ public class Enemy : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameManager.instance.InitateGameOver();
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.tag == "Zone")
+        {
+            dz = true;
         }
         else
         {
             GameManager.instance.IncreaseScore(10);
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
-        Destroy(gameObject);
-        Destroy(collision.gameObject);
+
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Zone")
+        {
+            dz = false;
+        }
     }
 }
