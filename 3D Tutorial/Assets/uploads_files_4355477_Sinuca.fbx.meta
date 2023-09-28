@@ -3,7 +3,177 @@ guid: ca030c6e971f1464e8f1a94356b26662
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BorrachaPreta
+    second: {fileID: 2100000, guid: 2fce213d741aa4e119ab5b858c49ab95, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Ch\xE3o"
+    second: {fileID: 2100000, guid: 935957b29d4a7404ab6c500ba9dd3df2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Conversao
+    second: {fileID: 2100000, guid: 6ea55b226d5f547c2957467af8d59b12, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Feltro
+    second: {fileID: 2100000, guid: b74391a76491e413b89f4869bebc2d29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lampada
+    second: {fileID: 2100000, guid: 1fb34ac6b297040d887ad923189941c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira
+    second: {fileID: 2100000, guid: 1d12cb4b4433c4945868cfcef3271261, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira.001
+    second: {fileID: 2100000, guid: d166a5695e3814a6a820a0e3eb944789, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MadeiraTaco
+    second: {fileID: 2100000, guid: 6087266df1a8d45cf909ad94eb49f901, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MadeiraTacoBranco
+    second: {fileID: 2100000, guid: ad50eb846f9c84dbc833f3566a63eb3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MadeiraTacoPreto
+    second: {fileID: 2100000, guid: 033b519d36b3e40ce97460e91038e5df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira_Preta
+    second: {fileID: 2100000, guid: b5748123bf1bb4c6d9600d01a85e5d6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Madeira_Preta.001
+    second: {fileID: 2100000, guid: 1c49048e098ac48219ed9aa99c649248, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBola1
+    second: {fileID: 2100000, guid: 1957592e3e643447a8897f9a59db7011, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBola2
+    second: {fileID: 2100000, guid: 728c808ec07c44bdbb40accb63dd722c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBola3
+    second: {fileID: 2100000, guid: a7b16953a8d3549b7bb0c25cf13c9b4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBola4
+    second: {fileID: 2100000, guid: a58969bd687b34680a0b77b087ed2563, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBola5
+    second: {fileID: 2100000, guid: ec54e369f870a4ec584e7db441c78876, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBola5.001
+    second: {fileID: 2100000, guid: 0005d5d5ddff4461098eb46a134692a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBola7
+    second: {fileID: 2100000, guid: 8219ed938d49448dba28221b588d1271, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolaAmarelo
+    second: {fileID: 2100000, guid: 151156763f6eb473cbe5e1bbcefc0bef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolaAzul
+    second: {fileID: 2100000, guid: 28f6d856344e245328ca1d187f7d8978, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolaPreta
+    second: {fileID: 2100000, guid: 35c3bc45b8a3f4ef4b4c78a11ebb4149, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolaRosa
+    second: {fileID: 2100000, guid: b0d356c7fe97b40ba9248517c5280688, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolaRoxa
+    second: {fileID: 2100000, guid: 90bebfaab34ae4f9faf35211a7b492a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolaVerde
+    second: {fileID: 2100000, guid: 76e617cbee0364a8494c2c86ae73b9b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolaVermelha
+    second: {fileID: 2100000, guid: 84f6146e99efb4b8a88fe1f8747720dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MaterialBolas
+    second: {fileID: 2100000, guid: ff170bc96945849bbaa248757af0f3ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 620ba12fed1c5496c89e179d9712df70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalDourado
+    second: {fileID: 2100000, guid: 5a82634c57e0349479c206ac01e2adf0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticoBranco
+    second: {fileID: 2100000, guid: 6856445c5caf1432da221b3fe384bf29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticoPreto
+    second: {fileID: 2100000, guid: bd294109d118a4af8911b6f0ef94815b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticoVermelho
+    second: {fileID: 2100000, guid: d9eac1d32e34f4d97b1ff1387f6d8244, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Preto
+    second: {fileID: 2100000, guid: 457b8e2f9cb504a6bb0207508b03e785, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vermelho
+    second: {fileID: 2100000, guid: cf2ccd4916f394a69b2863c7760addb7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -43,7 +213,7 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
+    importCameras: 0
     importLights: 1
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
