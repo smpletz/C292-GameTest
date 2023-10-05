@@ -59,5 +59,50 @@ public class GameSetup : MonoBehaviour
             ball.GetComponent<Ball>().BallSetup(true);
             blueBallsRemaining--;
         }
+
+        //Outer loop is the 5 rows
+        for(int i = 0; i < 5; i++)
+        {
+            //Inner loop are the balls in each row
+            for (int j = 0; j < NumInThisRow; j++)
+            {
+                //Check ot see if it's the middle spot where the 8 ball goes
+                if(i==2 && j==1)
+                {
+                    PlaceEightBall(currentPosition);
+                }
+                //If there are red and blue balls remaining, randomly choose one and place it
+                else if (redBallsRemaining > 0 && blueBallsRemaining > 0)
+                {
+                    rand = Random.Range(0,2);
+                    if (rand == 0)
+                    {
+                        PlaceRedBall(currentPosition);
+                    }
+                    else
+                    {
+                        PlaceBlueBall(currentPosition);
+                    }
+                }
+                // If only red balls are left, place one
+                else if (redBallsRemaining > 0) 
+                { 
+                    PlaceRedBall(currentPosition);
+                }
+                // Otherwise, place a blue ball
+                else
+                {
+                    PlaceBlueBall(currentPosition);
+                }
+
+                //Move the current position for the next ball in this row to the right
+                currentPosition += new Vector3(1,0,0).normalized * ballDiameter;
+            }
+
+            //Once all the balls in the row have been placed, move to the next row
+            firstInRowPosition += new Vector3(-1,0,-1).normalized * ballDiameter;
+            currentPosition = firstInRowPosition;
+            NumInThisRow++;
+        }
     }
 }
