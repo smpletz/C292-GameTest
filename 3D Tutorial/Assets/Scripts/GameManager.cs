@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,10 +18,10 @@ public class GameManager : MonoBehaviour
     int player1BallsRemaining = 7;
     int player2BallsRemaining = 7;
 
-    [SerializeField] TextMeshProGui player1BallsRemaining;
-    [SerializeField] TextMeshProGui player2BallsRemaining;
-    [SerializeField] TextMeshProGui currentTurnText;
-    [SerializeField] TextMeshProGui messageText;
+    [SerializeField] TextMeshProUGUI player1BallsText;
+    [SerializeField] TextMeshProUGUI player2BallsText;
+    [SerializeField] TextMeshProUGUI currentTurnText;
+    [SerializeField] TextMeshProUGUI messageText;
 
     [SerializeField] GameObject restartButton;
 
@@ -64,17 +65,17 @@ public class GameManager : MonoBehaviour
     {
         if (currentPlayer == CurrentPlayer.Player1)
         {
-            Lose("Player 1 Hit in the Eight Ball Too Early and Has Lost!")
+            Lose("Player 1 Hit in the Eight Ball Too Early and Has Lost!");
         }
         else
         {
-            Lose("Player 2 Hit in the Eight Ball Too Early and Has Lost!")
+            Lose("Player 2 Hit in the Eight Ball Too Early and Has Lost!");
         }
     }
     
     void ScratchOnWinningShot(string player)
     {
-        Lose(player + " Scratched on Their Final Shot and Has Lost!")
+        Lose(player + " Scratched on Their Final Shot and Has Lost!");
     }
 
     void NoMoreBalls(CurrentPlayer player)
@@ -155,21 +156,21 @@ public class GameManager : MonoBehaviour
     //potential error, G in GameObject not capitalized in video
     void Lose(string message)
     {
-        messageText.GameObject.SetActive(true);
+        messageText.gameObject.SetActive(true);
         messageText.text = message;
         restartButton.SetActive(true);
     }
 
     void Win(string player)
     {
-        messageText.GameObject.SetActive(true);
-        messageText.text = message + "Has Won!";
+        messageText.gameObject.SetActive(true);
+        messageText.text = player + "Has Won!";
         restartButton.SetActive(true);
     }
 
     void NextPlayerTurn()
     {
-        if (CurrentPlayer == CurrentPlayer.Player1)
+        if (currentPlayer == CurrentPlayer.Player1)
         {
             currentPlayer = CurrentPlayer.Player2;
             currentTurnText.text = "Current Turn: Player 2";
@@ -183,16 +184,17 @@ public class GameManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GameObject.tag == "Ball")
+        if (other.gameObject.tag == "Ball")
         {
-            if(CheckBall(other.GameObject.GetComponent<Ball>()))
+            if(CheckBall(other.gameObject.GetComponent<Ball>()))
             {
-                Destroy(other.GameObject)
+                Destroy(other.gameObject);
             }
-            else{
-                other.GameObject.Transform.position = headPosition.position;
-                other.GameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                other.GameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            else
+            {
+                other.gameObject.transform.position = headPosition.position;
+                other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                other.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             }
         }
     }
