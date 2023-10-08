@@ -8,17 +8,25 @@ public class GameSetup : MonoBehaviour
     int blueBallsRemaining = 7;
     float ballRadius;
     float ballDiameter;
+    float ballDiameterWithBuffer;
 
     [SerializeField] GameObject ballPrefab;
     [SerializeField] Transform cueBallPosition;
     [SerializeField] Transform headBallPosition;
+
+    // Awake is called before the Start method is called
+    private void Awake()
+    {
+        ballRadius = ballPrefab.GetComponent<SphereCollider>().radius * 100f;
+        ballDiameter = ballRadius * 2f;
+        PlaceAllBalls();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         ballRadius = ballPrefab.GetComponent<SphereCollider>().radius * 100f;
         ballDiameter = ballRadius * 2f;
-        PlaceAllBalls();
     }
 
     void PlaceAllBalls()

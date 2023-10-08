@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void RestartTheGame()
+    {
+        SceneManager.LoadScene(0);
     }
 
     bool Scratch()
@@ -128,6 +134,7 @@ public class GameManager : MonoBehaviour
             if (ball.IsBallRed())
             {
                 player1BallsRemaining--;
+                player1BallsText.text = "Player 1 Balls Remaining: " + player1BallsRemaining;
                 if(player1BallsRemaining <= 0)
                 {
                     isWinningShotForPlayer1 = true;
@@ -140,6 +147,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 player2BallsRemaining--;
+                player2BallsText.text = "Player 2 Balls Remaining: " + player2BallsRemaining;
                 if(player2BallsRemaining <= 0)
                 {
                     isWinningShotForPlayer2 = true;
