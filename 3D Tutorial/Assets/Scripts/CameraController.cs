@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -16,6 +17,7 @@ public class CameraController : MonoBehaviour
 
     Transform cueBall;
     GameManager gameManager;
+    [SerializeField] TextMeshProUGUI powerText;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,8 @@ public class CameraController : MonoBehaviour
 
             transform.RotateAround(cueBall.position, Vector3.up, horizontalInput);
         }
+
+        Shoot();
     }
 
     public void ResetCamera()
@@ -54,7 +58,7 @@ public class CameraController : MonoBehaviour
 
     void Shoot()
     {
-        if(GameObject.GetComponent<Camera>().enabled)
+        if(gameObject.GetComponent<Camera>().enabled)
         {
             if (Input.GetButtonDown("Fire 1") && !isTakingShot)
             {
@@ -70,15 +74,19 @@ public class CameraController : MonoBehaviour
                     {
                         SavedMousePosition = maxDrawDistance;
                     }
+                    float powerValueNumber = ((SavedMousePosition - 0) / (maxDrawDistance - 0)) * (100 - 0) + 0;
+                    int powerValueInt = Mathf.RoundToInt(powerValueNumber);
+                    powerText.text = "Power: " + powerValueInt + "%";
                 }
                 if (Input.GetButtonDown("Fire 1"))
                 {
                     Vector3 hitDirection = transform.forward;
                     hitDirection = new Vector3(hitDirection.x, 0, hitDirection.z).normalized;
 
-                    cueBall.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection * power, ForceMode.Impulse);
+                    cueBall.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection * power * Mathf.Abs(SavedMousePosition), ForceMode.Impulse);
                     cueStick.SetActive(false);
                     gameManager.SwitchCameras();
+                    isTakingShot = false;
                 }
             }
         }
