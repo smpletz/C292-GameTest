@@ -9,9 +9,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] float jump;
 
-    public bool isJumping;
+    [SerializeField] Transform foot;
+    [SerializeField] Transform side;
+    [SerializeField] LayerMask groundMask;
+
+    bool isWallSliding;
+    [SerializeField] float wallSlidingSpeed;
 
     private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,25 +31,47 @@ public class Player : MonoBehaviour
 
         rb.velocity = new Vector2(speed * Move, rb.velocity.y);
 
-        if(Input.GetButtonDown("Jump") && isJumping == false)
+        if(Input.GetButtonDown("Jump") && GroundCheck())
         {
             rb.AddForce(new Vector2(rb.velocity.x, jump));
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private bool GroundCheck()
     {
-        if(other.gameObject.CompareTag("Ground"))
+        RaycastHit2D hit;
+
+        hit = Physics2D.Raycast(foot.position, Vector2.down, .2f, groundMask);
+
+        return hit;
+    }
+
+    private bool WallCheck()
+    {
+        RaycastHit2D hit;
+
+        hit = Physics2D.Raycast(side.position, Vector2.right, .2f, groundMask)
+
+        if(!hit)
         {
-            isJumping = false;
+            hit = Physics2D.Raycast(side.position, Vector2.left, .2f, groundMask)
+        }
+
+        return hit;
+    }
+
+    private void WallSlide()
+    {
+        if(WallCheck() && !GroundCheck() && rb.velocity.x != 0f)
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue))
+        }
+        else
+        {
+            isWallSliding = false;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            isJumping = true;
-        }
-    }
+    
 }
