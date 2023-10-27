@@ -10,13 +10,18 @@ public class Player : MonoBehaviour
     [SerializeField] float jump;
 
     [SerializeField] Transform foot;
-    [SerializeField] Transform side;
+    [SerializeField] Transform sideTop;
+    [SerializeField] Transform sideMid;
+    [SerializeField] Transform sideBottom;
     [SerializeField] LayerMask groundMask;
 
     private bool isWallSliding;
     [SerializeField] float wallSlidingSpeed;
+    [SerializeField] float wallClimbingSpeed;
     [SerializeField] float wallJumpForce;
     [SerializeField] float wallJumpDuration;
+    [SerializeField] float stamina;
+    private bool isDraining;
     private bool isWallJumping;
 
     private Rigidbody2D rb;
@@ -49,6 +54,17 @@ public class Player : MonoBehaviour
             isWallJumping = true;
             rb.AddForce(new Vector2(wallJumpForce * -Move, jump));
             Invoke("StopWallJump", wallJumpDuration);
+        }
+
+        // Wall Climbing
+        if(Input.GetKey(KeyCode.UpArrow) && isWallSliding && stamina > 0)
+        {
+            rb.velocity = new Vector2(0,wallClimbingSpeed);
+            if(!isDraining)
+            {
+                Invoke("DrainStamina", .1f);
+                isDraining = true;
+            }
         }
 
         Flip();
@@ -84,11 +100,26 @@ public class Player : MonoBehaviour
     {
         RaycastHit2D hit;
 
-        hit = Physics2D.Raycast(side.position, Vector2.right, .2f, groundMask);
-
+        hit = Physics2D.Raycast(sideTop.position, Vector2.right, .2f, groundMask);
         if(!hit)
         {
-            hit = Physics2D.Raycast(side.position, Vector2.left, .2f, groundMask);
+            hit = Physics2D.Raycast(sideMid.position, Vector2.right, .2f, groundMask);
+        }
+        if(!hit)
+        {
+            hit = Physics2D.Raycast(sideBottom.position, Vector2.right, .2f, groundMask);
+        }
+        if(!hit)
+        {
+            hit = Physics2D.Raycast(sideTop.position, Vector2.left, .2f, groundMask);
+        }
+        if(!hit)
+        {
+            hit = Physics2D.Raycast(sideMid.position, Vector2.left, .2f, groundMask);
+        }
+        if(!hit)
+        {
+            hit = Physics2D.Raycast(sideBottom.position, Vector2.left, .2f, groundMask);
         }
 
         return hit;
@@ -97,7 +128,7 @@ public class Player : MonoBehaviour
     // Checks if Player is pressing into a wall
     private void WallSlide()
     {
-        if(WallCheck() && !GroundCheck() && Move != 0f && !Input.GetKey(KeyCode.LeftShift))
+        if(WallCheck() && !GroundCheck() && Move != 0f)
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
@@ -111,5 +142,11 @@ public class Player : MonoBehaviour
     private void StopWallJump()
     {
         isWallJumping = false;
+    }
+
+    private void DrainStamina()
+    {
+        stamina -= .1f;
+        isDraining = false;
     }
 }
