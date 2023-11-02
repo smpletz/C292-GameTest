@@ -24,20 +24,30 @@ public class Player : MonoBehaviour
     private bool isDraining;
     private bool isWallJumping;
 
+    [SerializeField] float dashForce;
+    private bool isDashing;
+    private bool hasDash;
+
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        isDraining = false;
+        isWallJumping = false;
+        isWallSliding = false;
+        hasDash = true;
+        isDashing = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         Move = Input.GetAxis("Horizontal");
+        Vert = Input.GetAxis("Vertical");
 
-        if(!isWallSliding && !isWallJumping)
+        if(!isWallSliding && !isWallJumping && !isDashing)
         {
             rb.velocity = new Vector2(speed * Move, rb.velocity.y);
         }
@@ -65,6 +75,70 @@ public class Player : MonoBehaviour
                 Invoke("DrainStamina", .1f);
                 isDraining = true;
             }
+        }
+
+        // Dash
+        if(Input.GetButtonDown("Fire3") && hasDash)
+        {
+            hasDash = false;
+            isDashing = true;
+            if(Move > 0)
+            {
+                if(Vert > 0)
+                {
+                    rb.AddForce(new Vector2(dashForce, dashForce));
+                }
+                else if(Vert < 0)
+                {
+                    rb.AddForce(new Vector2(dashForce, -dashForce));
+                }
+                else
+                {
+                    rb.AddForce(new Vector2(2f * dashForce, 0));
+                }
+            }
+            else if(Move < 0)
+            {
+                if(Vert > 0)
+                {
+                    rb.AddForce(new Vector2(-dashForce, dashForce));
+                }
+                else if(Vert < 0)
+                {
+                    rb.AddForce(new Vector2(-dashForce, -dashForce));
+                }
+                else
+                {
+                    rb.AddForce(new Vector2(-2f * dashForce, 0));
+                }
+            }
+            else if (Move == 0)
+            {
+                if(Vert > 0)
+                {
+                    rb.AddForce(new Vector2(0, 2f * dashForce));
+                }
+                else if(Vert < 0)
+                {
+                    rb.AddForce(new Vector2(0, -2f * dashForce));
+                }
+                else
+                {
+                    hasDash = true;
+                    isDashing = false;
+                }
+            }
+            
+            if(isDashing)
+            {
+                Invoke("EndDash", .5f);
+            }
+        }
+
+        // Dash replenish
+        if(GroundCheck() || TouchFire())
+        {
+            hasDash = true;
         }
 
         Flip();
@@ -139,9 +213,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Checks for collision with "fire", destroys fire if yes and spawns a new one, replenishes dash
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "fire")
+        {
+            float desX = gameObject.GetXPos;
+            float desY = gameObject.GetYPos;
+            Destroy(collision.gameObject);
+            GameManager.instance.SpawnFire(desX, desY);
+            hasDash = true;
+        }
+    }
+
     private void StopWallJump()
     {
         isWallJumping = false;
+    }
+
+    private void EndDash()
+    {
+        isDashing = false;
     }
 
     private void DrainStamina()
