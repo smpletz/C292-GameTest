@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player playerInstance;
+
     [SerializeField] float speed;
     private float Move;
+    private float Vert;
 
     [SerializeField] float jump;
 
@@ -26,9 +29,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] float dashForce;
     private bool isDashing;
-    private bool hasDash;
+    public bool hasDash;
 
     private Rigidbody2D rb;
+
+    // Awake is called before Start
+    private void Awake()
+    {
+        playerInstance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -86,41 +95,41 @@ public class Player : MonoBehaviour
             {
                 if(Vert > 0)
                 {
-                    rb.AddForce(new Vector2(dashForce, dashForce));
+                    rb.velocity = new Vector2(dashForce, dashForce);
                 }
                 else if(Vert < 0)
                 {
-                    rb.AddForce(new Vector2(dashForce, -dashForce));
+                    rb.velocity = new Vector2(dashForce, -dashForce);
                 }
                 else
                 {
-                    rb.AddForce(new Vector2(2f * dashForce, 0));
+                    rb.velocity = new Vector2(1.5f * dashForce, 0);
                 }
             }
             else if(Move < 0)
             {
                 if(Vert > 0)
                 {
-                    rb.AddForce(new Vector2(-dashForce, dashForce));
+                    rb.velocity = new Vector2(-dashForce, dashForce);
                 }
                 else if(Vert < 0)
                 {
-                    rb.AddForce(new Vector2(-dashForce, -dashForce));
+                    rb.velocity = new Vector2(-dashForce, -dashForce);
                 }
                 else
                 {
-                    rb.AddForce(new Vector2(-2f * dashForce, 0));
+                    rb.velocity = new Vector2(-1.5f * dashForce, 0);
                 }
             }
             else if (Move == 0)
             {
                 if(Vert > 0)
                 {
-                    rb.AddForce(new Vector2(0, 2f * dashForce));
+                    rb.velocity = new Vector2(0, 1.5f * dashForce);
                 }
                 else if(Vert < 0)
                 {
-                    rb.AddForce(new Vector2(0, -2f * dashForce));
+                    rb.velocity = new Vector2(0, -1.5f * dashForce);
                 }
                 else
                 {
@@ -135,8 +144,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        // Dash replenish
-        if(GroundCheck() || TouchFire())
+        // Dash replenish when touching ground
+        if(GroundCheck())
         {
             hasDash = true;
         }
@@ -210,19 +219,6 @@ public class Player : MonoBehaviour
         else
         {
             isWallSliding = false;
-        }
-    }
-
-    // Checks for collision with "fire", destroys fire if yes and spawns a new one, replenishes dash
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "fire")
-        {
-            float desX = gameObject.GetXPos;
-            float desY = gameObject.GetYPos;
-            Destroy(collision.gameObject);
-            GameManager.instance.SpawnFire(desX, desY);
-            hasDash = true;
         }
     }
 

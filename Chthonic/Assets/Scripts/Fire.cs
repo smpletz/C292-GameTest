@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class Fire : MonoBehaviour
 {
+    private float xPos;
+    private float yPos;
     // Start is called before the first frame update
     void Start()
     {
-        float xPos = transform.position.x;
-        float yPos = transform.position.y;
+        xPos = transform.position.x;
+        yPos = transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(collision.gameObject.tag == "Player")
-        {
-            
-        }
+        
     }
 
-    public float GetXPos()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        return xPos;
-    }
-    public float GetYPos()
-    {
-        return yPos;
+        if(collision.gameObject.tag == "Player")
+        {
+            GameManager.instance.SpawnFire(xPos, yPos);
+            Destroy(gameObject);
+            Player.playerInstance.hasDash = true;
+        }
     }
 }
