@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject firePrefab;
     private float xSpawn;
     private float ySpawn;
+
+    bool playerDead = false;
 
     // Awake is called before Start
     private void Awake()
@@ -24,7 +27,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (playerDead)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     public void SpawnFire(float x, float y)
@@ -37,5 +43,10 @@ public class GameManager : MonoBehaviour
     private void Spawn()
     {
         Instantiate(firePrefab, new Vector3(xSpawn, ySpawn, 0), Quaternion.identity);
+    }
+
+    public void InitatePlayerDead()
+    {
+        playerDead = true;
     }
 }

@@ -5,11 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Fire
+  - Spike
+  - GameManager
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

@@ -222,6 +222,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "GameManager" || collision.gameObject.tag == "Spike")
+        {
+            //add death animation call here
+            GameManager.instance.InitatePlayerDead();
+        }
+    }
+
     private void StopWallJump()
     {
         isWallJumping = false;
