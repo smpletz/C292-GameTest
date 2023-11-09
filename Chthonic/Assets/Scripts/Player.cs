@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player playerInstance;
+    public Animator animator;
 
     [SerializeField] float speed;
     private float Move;
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] float wallClimbingSpeed;
     [SerializeField] float wallJumpForce;
     [SerializeField] float wallJumpDuration;
-    [SerializeField] float stamina;
+    private float stamina;
     private bool isDraining;
     private bool isWallJumping;
 
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
         isWallSliding = false;
         hasDash = true;
         isDashing = false;
+        stamina = 10f;
     }
 
     // Update is called once per frame
@@ -55,6 +57,12 @@ public class Player : MonoBehaviour
     {
         Move = Input.GetAxis("Horizontal");
         Vert = Input.GetAxis("Vertical");
+
+        animator.SetFloat("Speed", Mathf.Abs(Move));
+        animator.SetFloat("Vert", rb.velocity.y);
+        animator.SetBool("WallSlide", isWallSliding);
+        animator.SetBool("Dashing", isDashing);
+        animator.SetBool("Dead", GameManager.instance.GetPlayerDead());
 
         if(!isWallSliding && !isWallJumping && !isDashing)
         {
@@ -148,6 +156,7 @@ public class Player : MonoBehaviour
         if(GroundCheck())
         {
             hasDash = true;
+            stamina = 10f;
         }
 
         Flip();
@@ -226,7 +235,6 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "GameManager" || collision.gameObject.tag == "Spike")
         {
-            //add death animation call here
             GameManager.instance.InitatePlayerDead();
         }
     }

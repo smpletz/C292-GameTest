@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
     [SerializeField] GameObject firePrefab;
     private float xSpawn;
     private float ySpawn;
@@ -48,5 +49,10 @@ public class GameManager : MonoBehaviour
     public void InitatePlayerDead()
     {
         playerDead = true;
+    }
+
+    public bool GetPlayerDead()
+    {
+        return playerDead;
     }
 }
