@@ -8,6 +8,7 @@ TagManager:
   - Fire
   - Spike
   - GameManager
+  - Goal
   layers:
   - Default
   - TransparentFX

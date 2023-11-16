@@ -99,13 +99,13 @@ public class Player : MonoBehaviour
         {
             hasDash = false;
             isDashing = true;
-            if(Move > 0)
+            if(Input.GetKey(KeyCode.RightArrow))
             {
-                if(Vert > 0)
+                if(Input.GetKey(KeyCode.UpArrow))
                 {
                     rb.velocity = new Vector2(dashForce, dashForce);
                 }
-                else if(Vert < 0)
+                else if(Input.GetKey(KeyCode.DownArrow))
                 {
                     rb.velocity = new Vector2(dashForce, -dashForce);
                 }
@@ -114,13 +114,13 @@ public class Player : MonoBehaviour
                     rb.velocity = new Vector2(1.5f * dashForce, 0);
                 }
             }
-            else if(Move < 0)
+            else if(Input.GetKey(KeyCode.LeftArrow))
             {
-                if(Vert > 0)
+                if(Input.GetKey(KeyCode.UpArrow))
                 {
                     rb.velocity = new Vector2(-dashForce, dashForce);
                 }
-                else if(Vert < 0)
+                else if(Input.GetKey(KeyCode.DownArrow))
                 {
                     rb.velocity = new Vector2(-dashForce, -dashForce);
                 }
@@ -129,13 +129,13 @@ public class Player : MonoBehaviour
                     rb.velocity = new Vector2(-1.5f * dashForce, 0);
                 }
             }
-            else if (Move == 0)
+            else
             {
-                if(Vert > 0)
+                if(Input.GetKey(KeyCode.UpArrow))
                 {
                     rb.velocity = new Vector2(0, 1.5f * dashForce);
                 }
-                else if(Vert < 0)
+                else if(Input.GetKey(KeyCode.DownArrow))
                 {
                     rb.velocity = new Vector2(0, -1.5f * dashForce);
                 }
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
         RaycastHit2D hit;
 
         hit = Physics2D.Raycast(foot.position, Vector2.down, .2f, groundMask);
-
+ 
         return hit;
     }
 
